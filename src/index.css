@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-blue: #1e3a8a;
+  --color-emergency-red: #dc2626;
+  --color-low-stock: #f97316;
+  
+  --font-size-base: 20px;
+}
+
+/* Base styles for elderly UX */
+@layer base {
+  html {
+    font-size: var(--font-size-base);
+    @apply text-slate-900 bg-white;
+  }
+
+  button, 
+  [role="button"],
+  input[type="checkbox"],
+  input[type="radio"] {
+    min-height: 60px;
+    min-width: 60px;
+    @apply flex items-center justify-center p-4 transition-colors;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  textarea {
+    min-height: 60px;
+    @apply text-xl p-4 border-2 border-slate-300 rounded-lg focus:border-primary-blue outline-none;
+  }
+}
+
+@layer components {
+  .card-action {
+    @apply border-2 border-slate-200 rounded-xl p-6 bg-white active:bg-slate-50 transition-colors shadow-sm;
+  }
+
+  .btn-primary {
+    @apply bg-primary-blue text-white rounded-xl font-bold active:bg-blue-900;
+  }
+
+  .btn-emergency {
+    @apply bg-emergency-red text-white rounded-xl font-bold active:bg-red-900;
+  }
+}
