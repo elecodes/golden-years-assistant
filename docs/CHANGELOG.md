@@ -7,15 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-- Engineering standards integration (`docs/standards/`)
-- ADR documentation system (`docs/adr/`)
-- Playbook documentation (`docs/PLAYBOOK.md`)
+## [0.2.0] - 2024-03-18
 
 ### Changed
-- README.md updated with project documentation
+- **Design System Overhaul**: Professional minimalist redesign
+  - New color palette: Deep navy primary, sky blue CTA, emerald success
+  - Cleaner card components with refined borders and shadows
+  - Refined typography with semibold weights and tighter tracking
+  - Smaller, more elegant badges and icons
+  - Emergency button refined for professional appearance
+- Updated all components to new design system
+- README.md, Playbook, and documentation updated
 
-## [0.1.0] - 2024-03-18
+## [0.1.0] - 2024-03-16
 
 ### Added
 - **Dashboard Page**: Daily overview with tasks, hydration, and medications
@@ -46,5 +50,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Zustand state management with persist middleware
 - Lucide React icons
 
-[Unreleased]: https://github.com/your-repo/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/your-repo/releases/tag/v0.1.0
+[Unreleased]: https://github.com/elecodes/golden-years-assistant/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/elecodes/golden-years-assistant/releases/tag/v0.2.0
+[0.1.0]: https://github.com/elecodes/golden-years-assistant/releases/tag/v0.1.0

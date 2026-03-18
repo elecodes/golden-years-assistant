@@ -20,13 +20,14 @@ A voice-enabled health and wellness assistant designed for elderly users, featur
 - **Icons**: Lucide React
 - **Voice**: Web Speech API
 
-## Design Principles
+## Design System
 
-- WCAG AAA accessibility compliance
-- Large touch targets (70px minimum) for elderly users
-- High contrast color scheme
-- Voice feedback for all interactions
-- Responsive design (mobile-first)
+Professional minimalist design with accessibility-first approach:
+
+- **Colors**: Deep navy primary, sky blue CTA, emerald success states
+- **Typography**: 18px base, semibold weights, tight tracking
+- **Touch Targets**: 60px minimum for elderly-friendly interaction
+- **Accessibility**: WCAG compliant, ARIA labels, focus states
 
 ## Getting Started
 
@@ -37,11 +38,11 @@ npm install
 # Start development server
 npm run dev
 
-# Build for production
-npm run build
-
 # Preview production build
 npm run preview
+
+# Build for production
+npm run build
 ```
 
 ## Project Structure
@@ -62,13 +63,20 @@ src/
 └── App.tsx          # Main app component
 ```
 
+## Documentation
+
+- [docs/adr/](docs/adr/) - Architecture Decision Records
+- [docs/PLAYBOOK.md](docs/PLAYBOOK.md) - Development workflow and guidelines
+- [docs/CHANGELOG.md](docs/CHANGELOG.md) - Version history
+- [docs/decisions.md](docs/decisions.md) - Technical decisions summary
+
 ## Architecture Decisions
 
 See [docs/adr/](docs/adr/) for architecture decision records.
 
 ## Skills & Standards
 
-Project-specific engineering standards are available in:
+Project-specific engineering standards available in:
 - [docs/standards/](docs/standards/) - Engineering standards skill bundle
 
 ## License

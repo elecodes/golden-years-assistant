@@ -1,63 +1,115 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary-blue: #1e3a8a;
-  --color-emergency-red: #dc2626;
-  --color-low-stock: #f97316;
+  --color-primary: #0F172A;
+  --color-secondary: #334155;
+  --color-cta: #0369A1;
+  --color-background: #F8FAFC;
+  --color-surface: #FFFFFF;
+  --color-text: #020617;
+  --color-text-muted: #475569;
+  --color-border: #E2E8F0;
+  --color-emergency: #DC2626;
+  --color-warning: #D97706;
+  --color-success: #059669;
+  --color-accent: #A5F3FC;
   
-  --font-size-base: 20px;
+  --font-size-base: 18px;
 }
 
 /* Base styles for elderly UX */
 @layer base {
   html {
     font-size: var(--font-size-base);
-    @apply text-slate-900 bg-white;
+    @apply text-slate-800 bg-slate-50 antialiased;
+  }
+
+  body {
+    @apply antialiased;
   }
 
   button, 
   [role="button"],
   input[type="checkbox"],
   input[type="radio"] {
+    @apply flex items-center justify-center p-4 transition-all duration-200;
     min-height: 60px;
     min-width: 60px;
-    @apply flex items-center justify-center p-4 transition-colors;
   }
 
   input[type="text"],
   input[type="number"],
   textarea {
+    @apply text-lg p-4 border-2 border-slate-200 rounded-lg focus:border-cta outline-none transition-colors duration-200;
     min-height: 60px;
-    @apply text-xl p-4 border-2 border-slate-300 rounded-lg focus:border-primary-blue outline-none;
   }
 }
 
-@layer components {
-  .card-action {
-    @apply border-2 border-slate-200 rounded-xl p-6 bg-white active:bg-blue-50 transition-colors cursor-pointer shadow-sm;
-  }
+/* Utility classes - no @apply for component classes */
+.card {
+  @apply border border-slate-200 rounded-2xl p-5 bg-white shadow-sm;
+}
 
-  .card-action:hover {
-    @apply border-blue-300 bg-blue-50/50 shadow-md;
-  }
+.card-interactive {
+  @apply border border-slate-200 rounded-xl p-5 bg-white shadow-sm transition-all duration-200 cursor-pointer;
+}
 
-  .btn-primary {
-    @apply bg-primary-blue text-white rounded-xl font-bold active:bg-blue-900 transition-colors duration-200;
-  }
+.card-interactive:hover {
+  @apply border-slate-300 shadow-md;
+}
 
-  .btn-primary:hover {
-    @apply bg-blue-700 shadow-lg;
-  }
+.card-interactive:active {
+  @apply bg-slate-50;
+}
 
-  .btn-emergency {
-    @apply bg-emergency-red text-white rounded-xl font-bold active:bg-red-900 transition-colors duration-200;
-  }
+.btn-primary {
+  @apply bg-cta text-white rounded-xl font-semibold active:opacity-90 transition-all duration-200;
+}
 
-  .btn-emergency:hover {
-    @apply bg-red-700 shadow-lg;
-  }
+.btn-primary:hover {
+  @apply bg-sky-700 shadow-md;
+}
 
-  .focus-ring:focus-visible {
-    @apply outline-none ring-4 ring-blue-400 ring-offset-2;
-  }
+.btn-secondary {
+  @apply bg-slate-100 text-slate-700 rounded-xl font-semibold active:opacity-90 transition-all duration-200;
+}
+
+.btn-secondary:hover {
+  @apply bg-slate-200;
+}
+
+.btn-emergency {
+  @apply bg-emergency text-white rounded-xl font-semibold active:opacity-90 transition-all duration-200;
+}
+
+.btn-emergency:hover {
+  @apply bg-red-700 shadow-md;
+}
+
+.btn-success {
+  @apply bg-success text-white rounded-xl font-semibold active:opacity-90 transition-all duration-200;
+}
+
+.btn-success:hover {
+  @apply bg-emerald-700 shadow-md;
+}
+
+.focus-ring:focus-visible {
+  @apply outline-none ring-4 ring-sky-400 ring-offset-2;
+}
+
+.badge {
+  @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium;
+}
+
+.badge-warning {
+  @apply bg-amber-100 text-amber-800;
+}
+
+.badge-success {
+  @apply bg-emerald-100 text-emerald-800;
+}
+
+.badge-emergency {
+  @apply bg-red-100 text-red-800;
 }
