@@ -34,14 +34,30 @@
 
 @layer components {
   .card-action {
-    @apply border-2 border-slate-200 rounded-xl p-6 bg-white active:bg-slate-50 transition-colors shadow-sm;
+    @apply border-2 border-slate-200 rounded-xl p-6 bg-white active:bg-blue-50 transition-colors cursor-pointer shadow-sm;
+  }
+
+  .card-action:hover {
+    @apply border-blue-300 bg-blue-50/50 shadow-md;
   }
 
   .btn-primary {
-    @apply bg-primary-blue text-white rounded-xl font-bold active:bg-blue-900;
+    @apply bg-primary-blue text-white rounded-xl font-bold active:bg-blue-900 transition-colors duration-200;
+  }
+
+  .btn-primary:hover {
+    @apply bg-blue-700 shadow-lg;
   }
 
   .btn-emergency {
-    @apply bg-emergency-red text-white rounded-xl font-bold active:bg-red-900;
+    @apply bg-emergency-red text-white rounded-xl font-bold active:bg-red-900 transition-colors duration-200;
+  }
+
+  .btn-emergency:hover {
+    @apply bg-red-700 shadow-lg;
+  }
+
+  .focus-ring:focus-visible {
+    @apply outline-none ring-4 ring-blue-400 ring-offset-2;
   }
 }
