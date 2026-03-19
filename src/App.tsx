@@ -4,6 +4,9 @@ import { CaregiverDashboard } from './pages/CaregiverDashboard'
 import { EmergencyButton } from './components/EmergencyButton'
 import { speak } from './utils/voice'
 import { User, ShieldCheck } from 'lucide-react'
+import { initSentry } from './monitoring/sentry'
+
+initSentry()
 
 function App() {
   const [view, setView] = useState<'user' | 'caregiver'>('user')

@@ -19,6 +19,7 @@ export default defineConfig({
         'src/index.css',
         'src/vite-env.d.ts',
         'src/test/**',
+        'src/monitoring/**',
         '*.config.*',
       ],
       thresholds: {
