@@ -1,0 +1,14 @@
+. "$(dirname "$0")/_/husky.sh"
+
+echo "Running pre-push checks..."
+
+# Run tests with coverage
+echo "Running tests with coverage..."
+npm run test:coverage
+
+if [ $? -ne 0 ]; then
+    echo "Coverage threshold not met. Please increase coverage before pushing."
+    exit 1
+fi
+
+echo "Pre-push checks passed!"
