@@ -20,6 +20,9 @@ A voice-enabled health and wellness assistant designed for elderly users, featur
 - **Icons**: Lucide React
 - **Voice**: Web Speech API
 - **Testing**: Vitest + Testing Library
+- **Security**: vite-plugin-csp-guard (CSP headers)
+- **Validation**: Zod v4 (runtime schema validation)
+- **Monitoring**: Sentry (error tracking)
 - **Quality Gates**: Husky git hooks
 
 ## Design System
@@ -53,20 +56,35 @@ npm run test
 npm run test:coverage
 ```
 
+## Environment Setup
+
+Copy `.env.example` to `.env` and configure:
+
+```bash
+VITE_SENTRY_DSN=   # From sentry.io
+VITE_APP_ENV=development
+```
+
 ## Quality Assurance
 
 ### Test Coverage Strategy (100/80/0)
 
 | Layer | Coverage Target | Examples |
 |-------|-----------------|----------|
-| CORE | 100% | src/utils/, src/store/ |
+| CORE | 100% | src/utils/, src/store/, src/validation/ |
 | GLOBAL | 80% | src/pages/, src/components/ |
-| INFRA | 0% | configs, static files |
+| INFRA | 0% | configs, monitoring, static files |
 
 ### Git Hooks (Husky)
 
 - **pre-commit**: Runs tests, lint, and build
 - **pre-push**: Enforces 80% coverage threshold
+
+### Security
+
+- **CSP**: Content Security Policy headers via vite-plugin-csp-guard
+- **Zod**: Runtime validation for all user inputs
+- **Sentry**: Production error monitoring and session replay
 
 ## Project Structure
 
@@ -83,6 +101,11 @@ src/
 │   └── useStore.ts
 ├── utils/           # Utility functions
 │   └── voice.ts    # Text-to-speech wrapper
+├── validation/      # Zod schemas
+│   ├── schemas.ts
+│   └── index.ts
+├── monitoring/     # Sentry integration
+│   └── sentry.ts
 ├── test/           # Test setup and mocks
 │   └── setup.ts
 └── App.tsx         # Main app component
@@ -99,14 +122,19 @@ src/
 
 See [docs/adr/](docs/adr/) for architecture decision records:
 
-- ADR-001: React + TypeScript + Vite Stack
-- ADR-002: Zustand for State Management
-- ADR-003: Tailwind CSS for Styling
-- ADR-004: Accessibility-First Design
-- ADR-005: Web Speech API Integration
-- ADR-006: Professional Minimalist Design
-- ADR-007: Vitest Testing Infrastructure
-- ADR-008: Husky Git Hooks
+| ADR | Title |
+|-----|-------|
+| ADR-001 | React + TypeScript + Vite Stack |
+| ADR-002 | Zustand for State Management |
+| ADR-003 | Tailwind CSS for Styling |
+| ADR-004 | Accessibility-First Design |
+| ADR-005 | Web Speech API Integration |
+| ADR-006 | Professional Minimalist Design |
+| ADR-007 | Vitest Testing Infrastructure |
+| ADR-008 | Husky Git Hooks |
+| ADR-009 | CSP Security Headers |
+| ADR-010 | Zod Runtime Validation |
+| ADR-011 | Sentry Error Monitoring |
 
 ## Skills & Standards
 

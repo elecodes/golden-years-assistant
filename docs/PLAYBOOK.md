@@ -44,8 +44,9 @@ Pre-commit hooks run automatically (tests, lint, build). If hooks fail:
    - [ ] ARIA labels on interactive elements
    - [ ] Focus states visible
    - [ ] Voice feedback for actions
-3. Write tests for CORE layer (store/utils) - target 100% coverage
-4. Update CHANGELOG.md
+3. Write validation schema if input is involved (Zod)
+4. Write tests for CORE layer (store/utils/validation) - target 100% coverage
+5. Update CHANGELOG.md
 
 ## Testing
 
@@ -59,9 +60,9 @@ Pre-commit hooks run automatically (tests, lint, build). If hooks fail:
 
 | Layer | Coverage Target | Examples |
 |-------|-----------------|----------|
-| CORE | 100% | src/utils/, src/store/ |
+| CORE | 100% | src/utils/, src/store/, src/validation/ |
 | GLOBAL | 80% | src/pages/, src/components/ |
-| INFRA | 0% | configs, static files |
+| INFRA | 0% | configs, monitoring, static files |
 
 ### Writing Tests
 
@@ -69,6 +70,7 @@ Pre-commit hooks run automatically (tests, lint, build). If hooks fail:
 # Test file naming: *.test.ts or *.spec.ts
 src/utils/voice.test.ts
 src/store/useStore.test.ts
+src/validation/index.test.ts
 ```
 
 ### Git Hooks (Husky)
@@ -79,6 +81,52 @@ src/store/useStore.test.ts
 | pre-push | Every push | Verify 80% coverage threshold |
 
 **Mac Compatibility**: All hooks are executable (`chmod +x`)
+
+## Security
+
+### Content Security Policy (CSP)
+
+CSP headers are injected at build time via vite-plugin-csp-guard.
+
+Key directives:
+- `script-src`: `'self'`, `'unsafe-inline'`, `'unsafe-eval'`
+- `style-src`: `'self'`, Google Fonts
+- `frame-src`: `'none'` (prevents clickjacking)
+
+### Runtime Validation (Zod)
+
+Validate all user inputs with Zod schemas:
+
+```typescript
+import { validate } from '@/validation';
+import { medicationSchema } from '@/validation/schemas';
+
+const result = validate(medicationSchema, formData);
+if (!result.success) {
+  showErrors(result.errors);
+}
+```
+
+### Error Monitoring (Sentry)
+
+Sentry captures errors automatically. Configure via `.env`:
+
+```bash
+VITE_SENTRY_DSN=https://xxx@sentry.io/xxx
+VITE_APP_ENV=production
+```
+
+Manual error capture:
+
+```typescript
+import { captureError } from '@/monitoring/sentry';
+
+try {
+  riskyOperation();
+} catch (error) {
+  captureError(error, { context: 'user action' });
+}
+```
 
 ## Design System
 
@@ -161,6 +209,7 @@ npm run preview
 - [ ] All tests pass
 - [ ] Lighthouse accessibility score > 95
 - [ ] Production build succeeds
+- [ ] Sentry DSN configured
 - [ ] CHANGELOG.md updated
 
 ## Troubleshooting
