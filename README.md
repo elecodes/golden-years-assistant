@@ -19,6 +19,8 @@ A voice-enabled health and wellness assistant designed for elderly users, featur
 - **State Management**: Zustand with persist middleware
 - **Icons**: Lucide React
 - **Voice**: Web Speech API
+- **Testing**: Vitest + Testing Library
+- **Quality Gates**: Husky git hooks
 
 ## Design System
 
@@ -43,7 +45,28 @@ npm run preview
 
 # Build for production
 npm run build
+
+# Run tests
+npm run test
+
+# Run tests with coverage
+npm run test:coverage
 ```
+
+## Quality Assurance
+
+### Test Coverage Strategy (100/80/0)
+
+| Layer | Coverage Target | Examples |
+|-------|-----------------|----------|
+| CORE | 100% | src/utils/, src/store/ |
+| GLOBAL | 80% | src/pages/, src/components/ |
+| INFRA | 0% | configs, static files |
+
+### Git Hooks (Husky)
+
+- **pre-commit**: Runs tests, lint, and build
+- **pre-push**: Enforces 80% coverage threshold
 
 ## Project Structure
 
@@ -59,8 +82,10 @@ src/
 ├── store/           # Zustand state management
 │   └── useStore.ts
 ├── utils/           # Utility functions
-│   └── voice.ts     # Text-to-speech wrapper
-└── App.tsx          # Main app component
+│   └── voice.ts    # Text-to-speech wrapper
+├── test/           # Test setup and mocks
+│   └── setup.ts
+└── App.tsx         # Main app component
 ```
 
 ## Documentation
@@ -72,7 +97,16 @@ src/
 
 ## Architecture Decisions
 
-See [docs/adr/](docs/adr/) for architecture decision records.
+See [docs/adr/](docs/adr/) for architecture decision records:
+
+- ADR-001: React + TypeScript + Vite Stack
+- ADR-002: Zustand for State Management
+- ADR-003: Tailwind CSS for Styling
+- ADR-004: Accessibility-First Design
+- ADR-005: Web Speech API Integration
+- ADR-006: Professional Minimalist Design
+- ADR-007: Vitest Testing Infrastructure
+- ADR-008: Husky Git Hooks
 
 ## Skills & Standards
 

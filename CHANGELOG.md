@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (Testing Infrastructure)
+- **Vitest Testing**: Unit testing with Vitest, happy-dom, and Testing Library
+- **Test Coverage**: 100% on CORE (store/utils), 80% global threshold
+- **Husky Git Hooks**: Pre-commit (tests, lint, build) and pre-push (coverage check)
+- **ADR-007**: Vitest testing infrastructure documentation
+- **ADR-008**: Husky git hooks documentation
+
 ## [0.2.0] - 2024-03-18
 
 ### Changed
@@ -14,7 +21,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - New color palette: Deep navy primary, sky blue CTA, emerald success
   - Cleaner card components with refined borders and shadows
   - Refined typography with semibold weights and tighter tracking
-  - Smaller, more elegant badges and icons
   - Emergency button refined for professional appearance
 - Updated all components to new design system
 

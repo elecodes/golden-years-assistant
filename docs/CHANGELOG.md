@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (Testing Infrastructure)
+- **Vitest Testing**: Unit testing with Vitest, happy-dom, and Testing Library
+- **Test Coverage**: 100% on CORE (store/utils), 80% global threshold
+- **Husky Git Hooks**: Pre-commit (tests, lint, build) and pre-push (coverage check)
+- **ADR-007**: Vitest testing infrastructure documentation
+- **ADR-008**: Husky git hooks documentation
+
 ## [0.2.0] - 2024-03-18
 
 ### Changed
@@ -29,6 +36,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Medication Tracker**: Medication management with stock tracking and low-stock alerts
 - **Voice Assistant**: Text-to-speech feedback for all user actions
 - **Persistent Storage**: Zustand with localStorage persistence
+- Engineering standards integration
+- ADR documentation system
+- Playbook documentation
 
 ### Features
 - Bottom navigation for switching between User and Caregiver views

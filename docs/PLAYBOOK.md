@@ -18,14 +18,23 @@ npm run lint
 
 # Type check and build
 npm run build
+
+# Run tests
+npm run test
+
+# Run tests in CI mode
+npm run test:ci
+
+# Run tests with coverage
+npm run test:coverage
 ```
 
 ### Before Committing
 
-1. Run `npm run lint` - Fix any errors
-2. Run `npm run build` - Ensure production build succeeds
-3. Test accessibility - Verify touch targets, contrast, keyboard nav
-4. Test voice feedback - Confirm audio works on interactions
+Pre-commit hooks run automatically (tests, lint, build). If hooks fail:
+1. Check test failures: `npm run test`
+2. Check lint errors: `npm run lint`
+3. Check build: `npm run build`
 
 ### Adding New Features
 
@@ -35,7 +44,41 @@ npm run build
    - [ ] ARIA labels on interactive elements
    - [ ] Focus states visible
    - [ ] Voice feedback for actions
-3. Update CHANGELOG.md
+3. Write tests for CORE layer (store/utils) - target 100% coverage
+4. Update CHANGELOG.md
+
+## Testing
+
+### Test Infrastructure
+
+- **Framework**: Vitest
+- **Environment**: happy-dom
+- **Library**: @testing-library/react + @testing-library/jest-dom
+
+### Coverage Strategy (100/80/0)
+
+| Layer | Coverage Target | Examples |
+|-------|-----------------|----------|
+| CORE | 100% | src/utils/, src/store/ |
+| GLOBAL | 80% | src/pages/, src/components/ |
+| INFRA | 0% | configs, static files |
+
+### Writing Tests
+
+```bash
+# Test file naming: *.test.ts or *.spec.ts
+src/utils/voice.test.ts
+src/store/useStore.test.ts
+```
+
+### Git Hooks (Husky)
+
+| Hook | Trigger | Action |
+|------|---------|--------|
+| pre-commit | Every commit | Run tests, lint, build |
+| pre-push | Every push | Verify 80% coverage threshold |
+
+**Mac Compatibility**: All hooks are executable (`chmod +x`)
 
 ## Design System
 
@@ -140,6 +183,12 @@ npm run preview
 1. Check localStorage available
 2. Verify storage quota not exceeded
 3. Check browser privacy settings
+
+### Testing Issues
+
+1. Clear Vite cache: `rm -rf node_modules/.vite`
+2. Reinstall dependencies: `rm -rf node_modules package-lock.json && npm install`
+3. Check coverage: `npm run test:coverage`
 
 ## Testing Checklist
 
