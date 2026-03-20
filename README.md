@@ -9,7 +9,7 @@ A voice-enabled health and wellness assistant designed for elderly users, featur
 - **Daily Tasks** - Voice-assisted task management with completion tracking
 - **Emergency Button** - One-tap access to emergency contacts with confirmation
 - **Caregiver Dashboard** - Separate view for caregivers to manage care recipient data
-- **Voice Assistant** - Text-to-speech for elderly-friendly interaction
+- **Voice Assistant** - Text-to-speech for elderly-friendly interaction (requires user click to enable)
 
 ## Tech Stack
 

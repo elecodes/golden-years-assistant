@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] - 2024-03-19
+
+### Fixed
+- **Voice Enable Button**: Added explicit "Enable Voice Assistant" button to handle browser autoplay restrictions
+- **CSP Fix**: Added `worker-src: blob:` and Sentry endpoint to CSP policy
+
+### Known Issues
+- Voice may require manual enabling due to browser autoplay policies
+- Some Chrome installations may have audio routing issues
+
 ## [0.3.0] - 2024-03-19
 
 ### Added (Quality Infrastructure)
@@ -31,10 +41,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - New color palette: Deep navy primary, sky blue CTA, emerald success
   - Cleaner card components with refined borders and shadows
   - Refined typography with semibold weights and tighter tracking
-  - Smaller, more elegant badges and icons
   - Emergency button refined for professional appearance
 - Updated all components to new design system
-- README.md, Playbook, and documentation updated
 
 ## [0.1.0] - 2024-03-16
 
@@ -70,7 +78,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Zustand state management with persist middleware
 - Lucide React icons
 
-[Unreleased]: https://github.com/elecodes/golden-years-assistant/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/elecodes/golden-years-assistant/compare/v0.3.1...HEAD
+[0.3.1]: https://github.com/elecodes/golden-years-assistant/releases/tag/v0.3.1
 [0.3.0]: https://github.com/elecodes/golden-years-assistant/releases/tag/v0.3.0
 [0.2.0]: https://github.com/elecodes/golden-years-assistant/releases/tag/v0.2.0
 [0.1.0]: https://github.com/elecodes/golden-years-assistant/releases/tag/v0.1.0
