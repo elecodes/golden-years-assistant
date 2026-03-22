@@ -9,7 +9,8 @@ describe('validation utilities', () => {
         name: 'Test Med',
         dosage: '10mg',
         stock: 30,
-        frequency: 'Morning',
+        frequency: 'DAILY',
+        scheduledTimes: ['08:00'],
       });
 
       expect(result.success).toBe(true);
@@ -22,6 +23,7 @@ describe('validation utilities', () => {
         dosage: '',
         stock: -5,
         frequency: 'Invalid',
+        scheduledTimes: [],
       });
 
       expect(result.success).toBe(false);
@@ -34,7 +36,8 @@ describe('validation utilities', () => {
         name: '',
         dosage: '10mg',
         stock: 10,
-        frequency: 'Morning',
+        frequency: 'DAILY',
+        scheduledTimes: ['08:00'],
       });
 
       expect(result.success).toBe(false);
@@ -46,7 +49,8 @@ describe('validation utilities', () => {
         name: 'Test',
         dosage: '10mg',
         stock: -1,
-        frequency: 'Morning',
+        frequency: 'DAILY',
+        scheduledTimes: ['08:00'],
       });
 
       expect(result.success).toBe(false);
@@ -83,12 +87,14 @@ describe('validation utilities', () => {
 
   describe('frequencyEnum', () => {
     it('should accept valid frequencies', () => {
-      expect(validate(frequencyEnum, 'Morning').success).toBe(true);
-      expect(validate(frequencyEnum, 'Afternoon').success).toBe(true);
-      expect(validate(frequencyEnum, 'Evening').success).toBe(true);
+      expect(validate(frequencyEnum, 'DAILY').success).toBe(true);
+      expect(validate(frequencyEnum, 'TWICE_DAILY').success).toBe(true);
+      expect(validate(frequencyEnum, 'WEEKLY').success).toBe(true);
+      expect(validate(frequencyEnum, 'AS_NEEDED').success).toBe(true);
     });
 
     it('should reject invalid frequencies', () => {
+      expect(validate(frequencyEnum, 'Morning').success).toBe(false);
       expect(validate(frequencyEnum, 'Night').success).toBe(false);
       expect(validate(frequencyEnum, '').success).toBe(false);
     });

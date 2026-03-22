@@ -11,7 +11,9 @@ export const CaregiverDashboard: React.FC = () => {
     name: '',
     dosage: '',
     stock: 30,
-    frequency: 'Morning'
+    frequency: 'DAILY',
+    scheduledTimes: ['08:00'],
+    createdAt: Date.now(),
   });
 
   const handleAdd = () => {
@@ -20,7 +22,7 @@ export const CaregiverDashboard: React.FC = () => {
       return;
     }
     addMedication(newMed);
-    setNewMed({ name: '', dosage: '', stock: 30, frequency: 'Morning' });
+    setNewMed({ name: '', dosage: '', stock: 30, frequency: 'DAILY', scheduledTimes: ['08:00'], createdAt: Date.now() });
     speak("Medication added successfully.");
   };
 

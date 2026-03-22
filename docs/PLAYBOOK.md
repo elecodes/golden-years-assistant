@@ -48,6 +48,13 @@ Pre-commit hooks run automatically (tests, lint, build). If hooks fail:
 4. Write tests for CORE layer (store/utils/validation) - target 100% coverage
 5. Update CHANGELOG.md
 
+## Feature Flags
+
+### Medication Reminders (v0.4.0)
+- Enable: Set `VITE_REMINDERS_ENABLED=true` in `.env`
+- Features: RemindersDashboard, AddMedication, MedicationHistory
+- Notification: Web Notifications API with Service Worker
+
 ## Testing
 
 ### Test Infrastructure

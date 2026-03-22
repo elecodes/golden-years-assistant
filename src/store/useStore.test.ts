@@ -5,7 +5,7 @@ describe('useStore', () => {
   beforeEach(() => {
     useStore.setState({
       medications: [
-        { id: 'm1', name: 'Test Med', dosage: '10mg', stock: 10, frequency: 'Morning' },
+        { id: 'm1', name: 'Test Med', dosage: '10mg', stock: 10, frequency: 'DAILY', scheduledTimes: ['08:00'], createdAt: Date.now() },
       ],
       logs: [],
       tasks: [
@@ -14,22 +14,41 @@ describe('useStore', () => {
       waterGlasses: 0,
       lastDailySummary: null,
       shareCode: null,
+      remindersEnabled: false,
     });
   });
 
   describe('medications', () => {
-    it('should add a medication', () => {
+    it('should add a medication with new fields', () => {
       const initialCount = useStore.getState().medications.length;
 
       useStore.getState().addMedication({
         name: 'New Med',
         dosage: '20mg',
         stock: 5,
-        frequency: 'Evening',
+        frequency: 'TWICE_DAILY',
+        scheduledTimes: ['08:00', '20:00'],
+        notes: 'Take with food',
       });
 
       expect(useStore.getState().medications.length).toBe(initialCount + 1);
       expect(useStore.getState().medications[1].name).toBe('New Med');
+      expect(useStore.getState().medications[1].scheduledTimes).toEqual(['08:00', '20:00']);
+      expect(useStore.getState().medications[1].notes).toBe('Take with food');
+      expect(useStore.getState().medications[1].createdAt).toBeDefined();
+    });
+
+    it('should add a medication without optional fields', () => {
+      useStore.getState().addMedication({
+        name: 'Simple Med',
+        dosage: '50mg',
+        stock: 10,
+        frequency: 'DAILY',
+        scheduledTimes: ['09:00'],
+      });
+
+      const added = useStore.getState().medications.find(m => m.name === 'Simple Med');
+      expect(added?.notes).toBeUndefined();
     });
 
     it('should remove a medication', () => {
@@ -55,8 +74,8 @@ describe('useStore', () => {
     it('should only update stock for matching medication id', () => {
       useStore.setState({
         medications: [
-          { id: 'm1', name: 'Med 1', dosage: '10mg', stock: 10, frequency: 'Morning' },
-          { id: 'm2', name: 'Med 2', dosage: '20mg', stock: 20, frequency: 'Evening' },
+          { id: 'm1', name: 'Med 1', dosage: '10mg', stock: 10, frequency: 'DAILY', scheduledTimes: ['08:00'], createdAt: Date.now() },
+          { id: 'm2', name: 'Med 2', dosage: '20mg', stock: 20, frequency: 'DAILY', scheduledTimes: ['20:00'], createdAt: Date.now() },
         ],
       });
 
@@ -75,10 +94,58 @@ describe('useStore', () => {
       expect(useStore.getState().logs[0].status).toBe('Taken');
     });
 
+    it('should log medication taken with scheduled time', () => {
+      useStore.getState().logMedication('m1', 'Taken', '08:00');
+
+      expect(useStore.getState().logs[0].scheduledTime).toBe('08:00');
+    });
+
     it('should log medication skipped', () => {
       useStore.getState().logMedication('m1', 'Skipped');
 
       expect(useStore.getState().logs[0].status).toBe('Skipped');
+    });
+  });
+
+  describe('reminder scheduling', () => {
+    it('should enable reminders', () => {
+      expect(useStore.getState().remindersEnabled).toBe(false);
+
+      useStore.getState().setRemindersEnabled(true);
+
+      expect(useStore.getState().remindersEnabled).toBe(true);
+    });
+
+    it('should migrate legacy medications', () => {
+      // Set up with legacy medication (no scheduledTimes - simulates legacy data)
+      useStore.setState({
+        medications: [
+          { id: 'legacy1', name: 'Legacy Med', dosage: '5mg', stock: 20, frequency: 'Morning', scheduledTimes: [], createdAt: Date.now() },
+        ],
+      });
+
+      // Migrate
+      useStore.getState().migrateLegacyMedications();
+
+      const migrated = useStore.getState().medications[0];
+      expect(migrated.frequency).toBe('DAILY');
+      expect(migrated.scheduledTimes).toEqual(['08:00']);
+    });
+
+    it('should preserve existing scheduledTimes during migration', () => {
+      // Set up with legacy medication that has scheduledTimes
+      useStore.setState({
+        medications: [
+          { id: 'legacy1', name: 'Legacy Med', dosage: '5mg', stock: 20, frequency: 'Morning', scheduledTimes: ['09:30'], createdAt: Date.now() },
+        ],
+      });
+
+      // Migrate
+      useStore.getState().migrateLegacyMedications();
+
+      const migrated = useStore.getState().medications[0];
+      expect(migrated.frequency).toBe('DAILY');
+      expect(migrated.scheduledTimes).toEqual(['09:30']); // Preserved
     });
   });
 

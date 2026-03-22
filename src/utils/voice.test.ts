@@ -27,6 +27,7 @@ describe('voice utilities', () => {
         value: {
           cancel: cancelMock,
           speak: speakMock,
+          getVoices: () => [],
         },
         writable: true,
       });
@@ -44,6 +45,7 @@ describe('voice utilities', () => {
         value: {
           cancel: vi.fn(),
           speak: speakMock,
+          getVoices: () => [],
         },
         writable: true,
       });
@@ -64,6 +66,7 @@ describe('voice utilities', () => {
         value: {
           cancel: vi.fn(),
           speak: speakMock,
+          getVoices: () => [],
         },
         writable: true,
       });
@@ -83,6 +86,7 @@ describe('voice utilities', () => {
         value: {
           cancel: vi.fn(),
           speak: speakMock,
+          getVoices: () => [],
         },
         writable: true,
       });

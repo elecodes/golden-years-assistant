@@ -1,12 +1,16 @@
 import React from 'react';
-import { LayoutGrid, Volume2, CheckCircle2, Circle } from 'lucide-react';
+import { LayoutGrid, Volume2, CheckCircle2, Circle, Bell } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import { speak } from '../utils/voice';
 import { HydrationTracker } from '../components/HydrationTracker';
 import { MedicationItem } from '../components/MedicationItem';
 import { cn } from '../utils/cn';
 
-export const Dashboard: React.FC = () => {
+interface DashboardProps {
+  onNavigate?: (view: 'dashboard' | 'reminders' | 'add-medication' | 'history') => void;
+}
+
+export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   const { tasks, toggleTask, medications, waterGlasses } = useStore();
 
   const handleVoiceSummary = () => {
@@ -110,7 +114,18 @@ export const Dashboard: React.FC = () => {
 
         {/* Medication Tracker */}
         <section className="col-span-full" aria-label="Medication Tracker">
-          <h2 className="text-xl font-semibold text-slate-700 mb-3">Medications</h2>
+          <div className="flex justify-between items-center mb-3">
+            <h2 className="text-xl font-semibold text-slate-700">Medications</h2>
+            {onNavigate && (
+              <button
+                onClick={() => onNavigate('reminders')}
+                className="flex items-center gap-2 text-cta hover:text-sky-700 transition-colors text-base font-medium min-h-[48px]"
+              >
+                <Bell className="w-5 h-5" aria-hidden="true" />
+                View Reminders
+              </button>
+            )}
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {medications.length > 0 ? (
               medications.map(med => (
@@ -121,7 +136,7 @@ export const Dashboard: React.FC = () => {
                 <p className="text-slate-500 mb-6">No medications added yet.</p>
                 <button 
                    className="btn-primary focus-ring px-6 py-3 min-h-[60px]"
-                   onClick={() => speak("To add a medication, please ask your caregiver to help you in the settings.")}
+                   onClick={() => onNavigate ? onNavigate('add-medication') : speak("To add a medication, please ask your caregiver to help you in the settings.")}
                 >
                   Add Medicine
                 </button>

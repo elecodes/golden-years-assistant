@@ -7,6 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-03-22
+
+### Added (Medication Reminders)
+- **Medication Reminders Feature**: Full medication reminder system with scheduled notifications
+- **RemindersDashboard**: Today's reminders grouped by morning/afternoon/evening/night
+- **AddMedication Form**: Form to add medications with scheduling (DAILY, TWICE_DAILY, WEEKLY, AS_NEEDED)
+- **MedicationHistory**: 7-day medication log view
+- **ReminderCard**: Accessible card component with Take/Skip actions
+- **Notification Service**: Web Notifications API integration with permission handling
+- **Service Worker**: Background notification delivery via public/sw.js
+- **Feature Flag**: VITE_REMINDERS_ENABLED environment variable
+
+### Technical Changes
+- **Extended Medication Model**: Added scheduledTimes, notes, createdAt fields
+- **Updated Frequency Enum**: DAILY, TWICE_DAILY, WEEKLY, AS_NEEDED (with legacy migration)
+- **Zod v4 Schema Updates**: New validation for scheduled times
+
+### Testing
+- **RemindersDashboard Tests**: 12 tests covering display, interactions, accessibility
+- **Schema Tests**: 23 tests for medication validation
+- **Voice Tests**: Fixed mocking for getVoices()
+
+### Bug Fixes
+- Fixed TypeScript build errors (legacy data compatibility)
+- Fixed navigation between Reminders → Add Medication → Reminders
+- Fixed Memory st ale data crash (added defensive null checks)
+
+### ADR
+- **ADR-012**: Medication Reminders (service worker, notification scheduling)
+
 ## [0.3.1] - 2024-03-19
 
 ### Fixed
