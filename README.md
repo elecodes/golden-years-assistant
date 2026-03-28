@@ -5,6 +5,8 @@ A voice-enabled health and wellness assistant designed for elderly users, featur
 ## Features
 
 - **Medication Tracking** - Track medications, dosages, and low-stock alerts
+- **Medication Reminders** - Scheduled notifications at user-specified times (morning/afternoon/evening/night)
+- **Medication History** - 7-day log of taken/skipped medications
 - **Hydration Monitoring** - Daily water intake tracker with visual progress
 - **Daily Tasks** - Voice-assisted task management with completion tracking
 - **Emergency Button** - One-tap access to emergency contacts with confirmation

@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed TypeScript build errors (legacy data compatibility)
 - Fixed navigation between Reminders → Add Medication → Reminders
 - Fixed Memory st ale data crash (added defensive null checks)
+- Fixed Sentry error: forEach on undefined (legacy medication data)
 
 ### ADR
 - **ADR-012**: Medication Reminders (service worker, notification scheduling)
