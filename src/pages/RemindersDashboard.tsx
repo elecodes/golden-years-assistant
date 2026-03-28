@@ -52,8 +52,9 @@ export const RemindersDashboard: React.FC<RemindersDashboardProps> = ({ onNaviga
     );
 
     medications?.forEach(medication => {
-      const times = medication.scheduledTimes || [];
+      const times = Array.isArray(medication.scheduledTimes) ? medication.scheduledTimes : [];
       times.forEach(time => {
+        if (!time || typeof time !== 'string') return;
         const [hours] = time.split(':').map(Number);
         
         // Find the appropriate group
