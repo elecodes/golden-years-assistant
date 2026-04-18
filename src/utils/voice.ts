@@ -1,4 +1,7 @@
-export const speak = (text: string, rate: number = 0.75) => {
+import { voiceConfig } from '../config/voice';
+import { pollyService } from '../services/polly.service';
+
+const speakBrowser = (text: string, rate: number = 0.75) => {
   if (!window.speechSynthesis) return;
 
   window.speechSynthesis.cancel();
@@ -15,6 +18,20 @@ export const speak = (text: string, rate: number = 0.75) => {
   }
 
   window.speechSynthesis.speak(utterance);
+};
+
+export const speak = async (text: string, rate: number = 0.75) => {
+  if (voiceConfig.provider === 'polly' && pollyService.isAvailable()) {
+    try {
+      await pollyService.speak(text);
+      return;
+    } catch {
+      // Fall through to browser TTS
+    }
+  }
+  
+  // Fallback to browser TTS
+  speakBrowser(text, rate);
 };
 
 export const announceAction = (action: string) => {
