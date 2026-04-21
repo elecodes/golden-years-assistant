@@ -20,8 +20,9 @@ A voice-enabled health and wellness assistant designed for elderly users, featur
 - **Styling**: Tailwind CSS 4
 - **State Management**: Zustand with persist middleware
 - **Icons**: Lucide React
-- **Voice**: Web Speech API
+- **Voice**: Amazon Polly Neural (Joanna) with browser fallback
 - **Testing**: Vitest + Testing Library
+- **Infrastructure**: AWS Lambda (Serverless) for Polly API
 - **Security**: vite-plugin-csp-guard (CSP headers)
 - **Validation**: Zod v4 (runtime schema validation)
 - **Monitoring**: Sentry (error tracking)
@@ -101,15 +102,20 @@ src/
 │   └── CaregiverDashboard.tsx
 ├── store/           # Zustand state management
 │   └── useStore.ts
+├── services/        # External services
+│   └── polly.service.ts # AWS Polly integration
 ├── utils/           # Utility functions
-│   └── voice.ts    # Text-to-speech wrapper
+│   └── voice.ts    # Voice orchestration & fallback
 ├── validation/      # Zod schemas
 │   ├── schemas.ts
 │   └── index.ts
+├── lambda/          # Backend serverless functions
+│   └── polly-speech.ts # AWS Lambda for Polly
 ├── monitoring/     # Sentry integration
 │   └── sentry.ts
 ├── test/           # Test setup and mocks
 │   └── setup.ts
+├── serverless.yml   # Infrastructure as Code
 └── App.tsx         # Main app component
 ```
 
@@ -137,6 +143,9 @@ See [docs/adr/](docs/adr/) for architecture decision records:
 | ADR-009 | CSP Security Headers |
 | ADR-010 | Zod Runtime Validation |
 | ADR-011 | Sentry Error Monitoring |
+| ADR-012 | Medication Reminders |
+| ADR-013 | Amazon Polly Voice Integration |
+| ADR-014 | Voice Concurrency & Cancellation |
 
 ## Skills & Standards
 

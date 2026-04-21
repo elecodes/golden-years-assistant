@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-04-21
+
+### Added (Premium Voice)
+- **Amazon Polly Integration**: High-quality, natural-sounding Joanna Neural voice.
+- **Voice Concurrency Handling**: New interruptive model prevents overlapping audio streams.
+- **Serverless Backend**: AWS Lambda implementation for secure Polly API access.
+- **Voice Fallback**: Automatic failover to browser TTS if Polly is unavailable.
+
+### Technical Changes
+- **PollyService**: Added in-memory caching and request cancellation with AbortController.
+- **Voice Utilities**: Refactored `speak()` to be async and handle centralized state cleanup.
+- **Infrastructure**: Added `serverless.yml` for easy AWS deployment.
+
+### Testing
+- **PollyService Tests**: Added rigorous tests for request cancellation and sequencing.
+- **Voice Utility Tests**: Updated to support async orchestration.
+
+### ADR
+- **ADR-013**: Amazon Polly Voice Integration
+- **ADR-014**: Voice Concurrency & Cancellation
+
 ## [0.4.0] - 2026-03-22
 
 ### Added (Medication Reminders)

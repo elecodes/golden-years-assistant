@@ -7,14 +7,14 @@ import { cn } from '../utils/cn';
 
 export const CaregiverDashboard: React.FC = () => {
   const { medications, addMedication, removeMedication, logs, shareCode, generateShareCode } = useStore();
-  const [newMed, setNewMed] = useState<Omit<Medication, 'id'>>({
+  const [newMed, setNewMed] = useState<Omit<Medication, 'id'>>(() => ({
     name: '',
     dosage: '',
     stock: 30,
     frequency: 'DAILY',
     scheduledTimes: ['08:00'],
     createdAt: Date.now(),
-  });
+  }));
 
   const handleAdd = () => {
     if (!newMed.name || !newMed.dosage) {

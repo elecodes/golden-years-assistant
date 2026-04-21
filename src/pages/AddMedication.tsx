@@ -150,7 +150,7 @@ export const AddMedication: React.FC<AddMedicationProps> = ({ onNavigate }) => {
       
       // In a real app, we'd navigate back or show a success message
       alert('Medication added successfully!');
-    } catch (error) {
+    } catch {
       setErrors({ general: 'Failed to add medication. Please try again.' });
     } finally {
       setIsSubmitting(false);

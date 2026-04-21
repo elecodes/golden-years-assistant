@@ -16,7 +16,7 @@ export default defineConfig({
         'style-src': ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
         'font-src': ["'self'", "https://fonts.gstatic.com"],
         'img-src': ["'self'", "data:", "blob:"],
-        'connect-src': ["'self'", "https://o4510370057158656.ingest.de.sentry.io"],
+        'connect-src': ["'self'", "https://o4510370057158656.ingest.de.sentry.io", "https://*.execute-api.us-east-1.amazonaws.com"],
         'worker-src': ["'self'", "blob:"],
         'frame-src': ["'none'"],
         'object-src': ["'none'"],

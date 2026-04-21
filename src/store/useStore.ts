@@ -3,7 +3,6 @@ import { persist } from 'zustand/middleware';
 
 export type Frequency = 'DAILY' | 'TWICE_DAILY' | 'WEEKLY' | 'AS_NEEDED';
 export type LegacyFrequency = 'Morning' | 'Afternoon' | 'Evening';
-// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 export type MedicationFrequency = Frequency | LegacyFrequency;
 
 export interface Medication {

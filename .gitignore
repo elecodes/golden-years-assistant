@@ -28,3 +28,19 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+.atl/
+
+# Serverless
+.serverless/
+lambda-package/
+
+# AI Agents
+.agents/
+.claude/
+.continue/
+.genkit/
+.junie/
+.kiro/
+.gemini/
+invoke_result.json
+skills-lock.json

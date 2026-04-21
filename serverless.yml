@@ -1,0 +1,38 @@
+service: goldenyears-polly
+frameworkVersion: '^4.34.0'
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+  environment:
+    REGION_POLLY: us-east-1
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - polly:SynthesizeSpeech
+          Resource: "*"
+
+functions:
+  polly:
+    handler: src/lambda/polly-speech.handler
+    events:
+      - http:
+          path: polly
+          method: post
+          cors: true
+      - http:
+          path: polly
+          method: options
+          cors: true
+
+package:
+  exclude:
+    - '**'
+  include:
+    - src/lambda/**
+
+plugins:
+  - serverless-offline

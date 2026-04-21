@@ -1,0 +1,57 @@
+
+> goldenyears-assistant@0.0.0 lint
+> eslint .
+
+
+/Users/elena/Developer/goldenyears-assistant/lambda-package/polly-speech.ts
+  71:74  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/elena/Developer/goldenyears-assistant/public/sw.js
+  16:9  error  Parsing error: Unexpected token as
+
+/Users/elena/Developer/goldenyears-assistant/src/lambda/polly-speech.ts
+   7:38  error  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+  31:12  error  'e' is defined but never used                                                                                        @typescript-eslint/no-unused-vars
+  72:5   error  Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
+
+/Users/elena/Developer/goldenyears-assistant/src/pages/AddMedication.tsx
+  153:14  error  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/elena/Developer/goldenyears-assistant/src/pages/CaregiverDashboard.tsx
+  16:16  error  Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/elena/Developer/goldenyears-assistant/src/pages/CaregiverDashboard.tsx:16:16
+  14 |     frequency: 'DAILY',
+  15 |     scheduledTimes: ['08:00'],
+> 16 |     createdAt: Date.now(),
+     |                ^^^^^^^^^^ Cannot call impure function
+  17 |   });
+  18 |
+  19 |   const handleAdd = () => {  react-hooks/purity
+
+/Users/elena/Developer/goldenyears-assistant/src/services/polly.service.test.ts
+  25:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  26:16  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  33:10  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  42:22  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  42:70  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  79:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  80:16  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  87:10  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  89:22  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/elena/Developer/goldenyears-assistant/src/services/polly.service.ts
+  79:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/elena/Developer/goldenyears-assistant/src/store/useStore.ts
+  6:1  warning  Unused eslint-disable directive (no problems were reported from '@typescript-eslint/no-redundant-type-constituents')
+
+/Users/elena/Developer/goldenyears-assistant/src/utils/debounce.ts
+  1:46  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  1:56  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+✖ 20 problems (19 errors, 1 warning)
+  0 errors and 1 warning potentially fixable with the `--fix` option.
+

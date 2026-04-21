@@ -1,14 +1,11 @@
+/// <reference types="node" />
 import { PollyClient, SynthesizeSpeechCommand } from '@aws-sdk/client-polly';
 
 const client = new PollyClient({
-  credentials: {
-    accessKeyId: process.env.POLLY_KEY!,
-    secretAccessKey: process.env.POLLY_SECRET!,
-  },
-  region: process.env.REGION_POLLY || 'us-east-1',
+  region: process.env.REGION_POLLY || process.env.AWS_REGION || 'us-east-1',
 });
 
-export const handler = async (event: any) => {
+export const handler = async (event: { httpMethod?: string; body?: string | null }) => {
   const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST,OPTIONS',
@@ -27,10 +24,24 @@ export const handler = async (event: any) => {
     };
   }
 
-  const body = JSON.parse(event.body || '{}');
+  console.log('Incoming event:', JSON.stringify(event, null, 2));
+
+  let body;
+  try {
+    body = JSON.parse(event.body || '{}');
+  } catch {
+    console.error('Failed to parse body:', event.body);
+    return {
+      statusCode: 400,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'Invalid JSON body' })
+    };
+  }
+
   const { Text, VoiceId = 'Joanna', Engine = 'neural' } = body;
 
   if (!Text) {
+    console.warn('Missing required field: Text');
     return { 
       statusCode: 400, 
       headers: { ...corsHeaders, 'Content-Type': 'application/json' }, 
@@ -39,6 +50,7 @@ export const handler = async (event: any) => {
   }
 
   try {
+    console.log(`Synthesizing speech for text length ${Text.length} with engine ${Engine}`);
     const command = new SynthesizeSpeechCommand({
       Text,
       TextType: 'text',
@@ -58,17 +70,16 @@ export const handler = async (event: any) => {
     }
 
     const chunks: number[] = [];
-    // @ts-ignore - AudioStream is async iterable
-    for await (const chunk of response.AudioStream) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    for await (const chunk of response.AudioStream as any) {
       chunks.push(...chunk);
     }
     const audioBuffer = Buffer.from(chunks);
 
     return {
       statusCode: 200,
-      headers: { ...corsHeaders, 'Content-Type': 'audio/mpeg' },
-      body: audioBuffer.toString('base64'),
-      isBase64Encoded: true,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ audioBase64: audioBuffer.toString('base64') }),
     };
   } catch (error) {
     console.error('Error:', error);

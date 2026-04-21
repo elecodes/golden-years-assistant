@@ -13,13 +13,13 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
   );
   // Activate immediately
-  (self as unknown as ServiceWorkerGlobalScope).skipWaiting();
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
   // Claim all clients immediately
   event.waitUntil(
-    (self as unknown as ServiceWorkerGlobalScope).clients.claim()
+    self.clients.claim()
   );
 });
 
@@ -67,15 +67,15 @@ self.addEventListener('message', (event) => {
   }
 });
 
-function showMedicationNotification(medicationId: string, name: string, dosage: string, time: string) {
+function showMedicationNotification(medicationId, name, dosage, time) {
   // Get all client windows
-  (self as unknown as ServiceWorkerGlobalScope).clients.matchAll({
+  self.clients.matchAll({
     type: 'window',
     includeUncontrolled: true
   }).then(clients => {
     // If no window is open, show a notification
     if (clients.length === 0) {
-      (self as unknown as ServiceWorkerGlobalScope).registration.showNotification(
+      self.registration.showNotification(
         'Time to take your medication',
         {
           body: `${name} - ${dosage}`,
@@ -111,8 +111,8 @@ function showMedicationNotification(medicationId: string, name: string, dosage: 
   });
 }
 
-function broadcastToClients(message: object) {
-  (self as unknown as ServiceWorkerGlobalScope).clients.matchAll({
+function broadcastToClients(message) {
+  self.clients.matchAll({
     type: 'window',
     includeUncontrolled: true
   }).then(clients => {
@@ -145,7 +145,7 @@ self.addEventListener('notificationclick', (event) => {
   } else {
     // Notification clicked (not action button) - open/focus app
     event.waitUntil(
-      (self as unknown as ServiceWorkerGlobalScope).clients.matchAll({
+      self.clients.matchAll({
         type: 'window',
         includeUncontrolled: true
       }).then(clientList => {
@@ -156,8 +156,8 @@ self.addEventListener('notificationclick', (event) => {
           }
         }
         // If no window exists, open a new one
-        if ((self as unknown as ServiceWorkerGlobalScope).clients.openWindow) {
-          return (self as unknown as ServiceWorkerGlobalScope).clients.openWindow('/');
+        if (self.clients.openWindow) {
+          return self.clients.openWindow('/');
         }
       })
     );
@@ -165,7 +165,7 @@ self.addEventListener('notificationclick', (event) => {
 });
 
 // Periodic Sync (if supported) - for checking reminders periodically
-self.addEventListener('periodicsync', (event: any) => {
+self.addEventListener('periodicsync', (event) => {
   if (event.tag === 'medication-check') {
     event.waitUntil(checkMedicationReminders());
   }
@@ -183,7 +183,7 @@ async function checkMedicationReminders() {
 }
 
 // Background Sync (for logging medication when offline)
-self.addEventListener('sync', (event: any) => {
+self.addEventListener('sync', (event) => {
   if (event.tag === 'medication-log-sync') {
     event.waitUntil(syncMedicationLogs());
   }
