@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { medicationSchema } from '../validation/schemas';
 
 export type Frequency = 'DAILY' | 'TWICE_DAILY' | 'WEEKLY' | 'AS_NEEDED';
 export type LegacyFrequency = 'Morning' | 'Afternoon' | 'Evening';
@@ -113,26 +114,38 @@ export const useStore = create<AppState>()(
       shareCode: null,
       remindersEnabled: false, // disabled by default (feature flag)
 
-      addMedication: (med) => set((state) => ({
-        medications: [...state.medications, { 
-          ...med, 
-          id: crypto.randomUUID(),
-          createdAt: Date.now(),
-          // Ensure defaults for legacy data
-          scheduledTimes: med.scheduledTimes ?? [],
-          notes: med.notes ?? undefined,
-        }]
-      })),
+      addMedication: (med) => {
+        const result = medicationSchema.safeParse(med);
+        if (!result.success) {
+          console.warn('Invalid medication data:', result.error.flatten());
+          return;
+        }
+        set((state) => ({
+          medications: [...state.medications, { 
+            ...result.data, 
+            id: crypto.randomUUID(),
+            createdAt: Date.now(),
+            scheduledTimes: result.data.scheduledTimes ?? [],
+            notes: result.data.notes ?? undefined,
+          }]
+        }));
+      },
 
       removeMedication: (id) => set((state) => ({
         medications: state.medications.filter((m) => m.id !== id)
       })),
 
-      updateStock: (id, amount) => set((state) => ({
-        medications: state.medications.map((m) => 
-          m.id === id ? { ...m, stock: Math.max(0, m.stock + amount) } : m
-        )
-      })),
+      updateStock: (id, amount) => {
+        if (typeof amount !== 'number' || !Number.isFinite(amount)) {
+          console.warn('Invalid stock amount:', amount);
+          return;
+        }
+        set((state) => ({
+          medications: state.medications.map((m) => 
+            m.id === id ? { ...m, stock: Math.max(0, m.stock + amount) } : m
+          )
+        }));
+      },
 
       logMedication: (medId, status, scheduledTime) => set((state) => ({
         logs: [...state.logs, { 
@@ -157,7 +170,11 @@ export const useStore = create<AppState>()(
       }),
 
       generateShareCode: () => set({
-        shareCode: Math.random().toString(36).substring(2, 8).toUpperCase()
+        shareCode: Array.from(crypto.getRandomValues(new Uint8Array(6)))
+          .map(b => b.toString(36))
+          .join('')
+          .substring(0, 6)
+          .toUpperCase()
       }),
 
       migrateLegacyMedications: () => set((state) => ({

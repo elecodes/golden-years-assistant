@@ -6,8 +6,9 @@ const client = new PollyClient({
 });
 
 export const handler = async (event: { httpMethod?: string; body?: string | null }) => {
+  const allowedOrigin = process.env.ALLOWED_ORIGIN || 'https://goldenyears.example.com';
   const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': allowedOrigin,
     'Access-Control-Allow-Methods': 'POST,OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
   };
@@ -82,11 +83,11 @@ export const handler = async (event: { httpMethod?: string; body?: string | null
       body: JSON.stringify({ audioBase64: audioBuffer.toString('base64') }),
     };
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Polly synthesis error:', error);
     return { 
       statusCode: 500, 
       headers: { ...corsHeaders, 'Content-Type': 'application/json' }, 
-      body: JSON.stringify({ error: 'Internal error', message: String(error) }) 
+      body: JSON.stringify({ error: 'Service unavailable' }) 
     };
   }
 };

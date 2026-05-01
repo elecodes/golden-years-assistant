@@ -111,8 +111,18 @@ import { medicationSchema } from '@/validation/schemas';
 const result = validate(medicationSchema, formData);
 if (!result.success) {
   showErrors(result.errors);
-}
 ```
+
+### Security Audit
+
+Run periodic security audits using the `security-review` skill:
+
+```bash
+# Activate skill and run audit
+skill(name: "security-review")
+```
+
+The skill performs OWASP Top 10 analysis and provides file + line locations for all findings.
 
 ### Error Monitoring (Sentry)
 

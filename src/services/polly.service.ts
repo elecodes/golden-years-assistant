@@ -52,6 +52,19 @@ class PollyService {
       throw new Error('Polly provider is not selected');
     }
 
+    if (!text || typeof text !== 'string') {
+      throw new Error('Text is required');
+    }
+
+    const trimmed = text.trim();
+    if (trimmed.length === 0) {
+      throw new Error('Text cannot be empty');
+    }
+
+    if (trimmed.length > 3000) {
+      throw new Error('Text exceeds maximum length of 3000 characters');
+    }
+
     this.currentRequestId++;
     const requestId = this.currentRequestId;
     this.stop();

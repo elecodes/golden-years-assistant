@@ -88,6 +88,9 @@ VITE_APP_ENV=development
 - **CSP**: Content Security Policy headers via vite-plugin-csp-guard
 - **Zod**: Runtime validation for all user inputs
 - **Sentry**: Production error monitoring and session replay
+- **OWASP Compliance**: Regular security audits with dedicated skill
+- **Secure Random**: crypto.getRandomValues() for cryptographic operations
+- **CORS**: Restricted to ALLOWED_ORIGIN environment variable
 
 ## Project Structure
 

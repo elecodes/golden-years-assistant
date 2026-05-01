@@ -1,5 +1,23 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig, globalSetup } from 'vitest/config';
 import react from '@vitejs/plugin-react';
+
+const globalSetup = () => {
+  return () => {
+    if (typeof globalThis.crypto === 'undefined' || !globalThis.crypto.getRandomValues) {
+      Object.defineProperty(globalThis, 'crypto', {
+        value: {
+          getRandomValues: (arr: Uint8Array) => {
+            for (let i = 0; i < arr.length; i++) {
+              arr[i] = Math.floor(Math.random() * 256);
+            }
+            return arr;
+          },
+        },
+        writable: true,
+      });
+    }
+  };
+};
 
 export default defineConfig({
   plugins: [react()],

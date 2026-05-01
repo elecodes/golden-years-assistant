@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+- **OWASP Top 10 Audit**: Comprehensive security review completed
+- **Critical**: Replaced `Math.random()` with `crypto.getRandomValues()` for secure share codes (prevents predictable enumeration)
+- **High**: Restricted CORS from wildcard `*` to specific `ALLOWED_ORIGIN` environment variable
+- **Medium**: Generic error messages (prevents information leakage)
+- **Medium**: Input validation in Polly service (type checks, length limits)
+- **Medium**: Zod schema validation in store actions (prevents invalid data)
+- **Security Review Skill**: New `security-review` skill for ongoing audits
+
+### Added
+- **Security Review Skill**: AI skill for security audits (`.agents/skills/security-review/`)
+
 ## [0.5.0] - 2026-04-21
 
 ### Added (Premium Voice)
