@@ -12,7 +12,7 @@ class PollyService {
   private currentRequestId: number = 0;
 
   isAvailable(): boolean {
-    return voiceConfig.provider === 'polly';
+    return voiceConfig.provider === 'polly' && !!voiceConfig.apiEndpoint;
   }
 
   private getCacheKey(text: string): string {
