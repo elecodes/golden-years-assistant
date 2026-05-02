@@ -22,6 +22,7 @@ const globalSetup = () => {
 export default defineConfig({
   plugins: [react()],
   test: {
+    globalSetup,
     environment: 'happy-dom',
     globals: true,
     setupFiles: ['./src/test/setup.ts'],
